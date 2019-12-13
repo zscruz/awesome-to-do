@@ -38,6 +38,19 @@ class TableViewController: UITableViewController {
         
         return cell
     }
-
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let todoItem = todoItems[indexPath.row]
+        todoItem.isCompleted = !todoItem.isCompleted
+        if let cell = tableView.cellForRow(at: indexPath) {
+            if todoItem.isCompleted {
+                cell.accessoryType = .checkmark
+            } else {
+                cell.accessoryType = .none
+            }
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 
