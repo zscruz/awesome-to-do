@@ -28,7 +28,14 @@ class TableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
-        cell.textLabel?.text = todoItems[indexPath.row].title
+        let todoItem = todoItems[indexPath.row]
+        cell.textLabel?.text = todoItem.title
+        if todoItem.isCompleted {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
+        }
+        
         return cell
     }
 
