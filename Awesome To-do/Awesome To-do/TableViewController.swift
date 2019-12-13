@@ -30,11 +30,7 @@ class TableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
         let todoItem = todoItems[indexPath.row]
         cell.textLabel?.text = todoItem.title
-        if todoItem.isCompleted {
-            cell.accessoryType = .checkmark
-        } else {
-            cell.accessoryType = .none
-        }
+        updateCheckmark(todoItem, cell)
         
         return cell
     }
@@ -43,14 +39,18 @@ class TableViewController: UITableViewController {
         let todoItem = todoItems[indexPath.row]
         todoItem.isCompleted = !todoItem.isCompleted
         if let cell = tableView.cellForRow(at: indexPath) {
-            if todoItem.isCompleted {
-                cell.accessoryType = .checkmark
-            } else {
-                cell.accessoryType = .none
-            }
+            updateCheckmark(todoItem, cell)
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    fileprivate func updateCheckmark(_ todoItem: TodoItem, _ cell: UITableViewCell) {
+        if todoItem.isCompleted {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
+        }
     }
 }
 
