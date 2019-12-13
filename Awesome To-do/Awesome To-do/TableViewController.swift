@@ -8,19 +8,27 @@
 
 import UIKit
 
-class TableViewController: UITableViewController {
 
+class TableViewController: UITableViewController {
+    var todoItems: [TodoItem] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.todoItems = [
+            TodoItem(title: "Learn Swift", isCompleted: false),
+            TodoItem(title: "Learn Cocoa Touch", isCompleted: false),
+            TodoItem(title: "Learn MVC", isCompleted: true)
+        ]
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return todoItems.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
+        cell.textLabel?.text = todoItems[indexPath.row].title
         return cell
     }
 
