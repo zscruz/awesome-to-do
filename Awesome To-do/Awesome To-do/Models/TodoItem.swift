@@ -15,4 +15,8 @@ class TodoItem {
         self.title = title
         self.isCompleted = isCompleted
     }
+    
+    func toggleCompletedStatus() {
+        self.isCompleted = !self.isCompleted
+    }
 }

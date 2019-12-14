@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A842155A23A53856009BB6E8 /* MockTodoItemDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A842155923A53856009BB6E8 /* MockTodoItemDataSource.swift */; };
+		A842155C23A5398E009BB6E8 /* TodoItemDataSourceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A842155B23A5398E009BB6E8 /* TodoItemDataSourceProtocol.swift */; };
 		A89EDA9923A3E5F8003FF10B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89EDA9823A3E5F8003FF10B /* AppDelegate.swift */; };
 		A89EDA9B23A3E5F8003FF10B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89EDA9A23A3E5F8003FF10B /* SceneDelegate.swift */; };
 		A89EDA9D23A3E5F8003FF10B /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89EDA9C23A3E5F8003FF10B /* TableViewController.swift */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A842155923A53856009BB6E8 /* MockTodoItemDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTodoItemDataSource.swift; sourceTree = "<group>"; };
+		A842155B23A5398E009BB6E8 /* TodoItemDataSourceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemDataSourceProtocol.swift; sourceTree = "<group>"; };
 		A89EDA9523A3E5F8003FF10B /* Awesome To-do.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Awesome To-do.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A89EDA9823A3E5F8003FF10B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A89EDA9A23A3E5F8003FF10B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +78,8 @@
 			isa = PBXGroup;
 			children = (
 				A89EDACD23A44829003FF10B /* TodoItem.swift */,
+				A842155923A53856009BB6E8 /* MockTodoItemDataSource.swift */,
+				A842155B23A5398E009BB6E8 /* TodoItemDataSourceProtocol.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -149,9 +155,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A842155A23A53856009BB6E8 /* MockTodoItemDataSource.swift in Sources */,
 				A89EDA9D23A3E5F8003FF10B /* TableViewController.swift in Sources */,
 				A89EDA9923A3E5F8003FF10B /* AppDelegate.swift in Sources */,
 				A89EDACE23A44829003FF10B /* TodoItem.swift in Sources */,
+				A842155C23A5398E009BB6E8 /* TodoItemDataSourceProtocol.swift in Sources */,
 				A89EDA9B23A3E5F8003FF10B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -15,11 +15,8 @@ class TableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.todoItems = [
-            TodoItem(title: "Learn Swift", isCompleted: false),
-            TodoItem(title: "Learn Cocoa Touch", isCompleted: false),
-            TodoItem(title: "Learn MVC", isCompleted: true)
-        ]
+        let mockData = MockTodoItemDataSource()
+        self.todoItems = mockData.getTodoItemList()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -37,7 +34,7 @@ class TableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let todoItem = todoItems[indexPath.row]
-        todoItem.isCompleted = !todoItem.isCompleted
+        todoItem.toggleCompletedStatus()
         if let cell = tableView.cellForRow(at: indexPath) {
             updateCheckmark(todoItem, cell)
         }
