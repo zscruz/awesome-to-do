@@ -42,7 +42,10 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
         let todoItem = todoItems[indexPath.row]
-        cell.textLabel?.text = todoItem.title
+        if let label = cell.viewWithTag(100) as? UILabel {
+            label.text = todoItem.title
+        }
+        
         updateCheckmark(todoItem, cell)
         
         return cell
@@ -59,11 +62,15 @@ class TableViewController: UITableViewController {
     }
     
     fileprivate func updateCheckmark(_ todoItem: TodoItem, _ cell: UITableViewCell) {
-        if todoItem.isCompleted {
-            cell.accessoryType = .checkmark
-        } else {
-            cell.accessoryType = .none
+        guard let checkmarkLabel = cell.viewWithTag(101) as? UILabel else {
+            return
         }
+        
+        if todoItem.isCompleted {
+           checkmarkLabel.text = "✅"
+        } else {
+           checkmarkLabel.text = ""
+       }
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
