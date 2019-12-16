@@ -36,6 +36,16 @@ class AddItemViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         navigationItem.largeTitleDisplayMode = .never
+        if isEditMode {
+            addButton.isEnabled = true
+            addButton.title = "Edit"
+            if let todoItem = selectedTodoItem {
+                titleText.text = todoItem.title
+            }
+        } else {
+            addButton.isEnabled = false
+            addButton.title = "Add"
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
