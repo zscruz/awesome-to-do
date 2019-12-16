@@ -65,6 +65,13 @@ class TableViewController: UITableViewController {
             cell.accessoryType = .none
         }
     }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        todoItems.remove(at: indexPath.row)
+        
+        let indexPaths = [indexPath]
+        tableView.deleteRows(at: indexPaths, with: .automatic)
+    }
 }
 
 extension TableViewController: AddItemViewControllerDelegate {
