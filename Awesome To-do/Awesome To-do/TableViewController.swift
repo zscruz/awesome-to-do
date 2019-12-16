@@ -12,13 +12,27 @@ import UIKit
 class TableViewController: UITableViewController {
     var todoItems: [TodoItem] = []
     
+    @IBAction func addItem(_ sender: Any) {
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        let mockData = MockTodoItemDataSource()
+        self.todoItems = mockData.getTodoItemList()
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
-        let mockData = MockTodoItemDataSource()
-        self.todoItems = mockData.getTodoItemList()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AddItemSegue" {
+            if let addItemViewController = segue.destination as? AddItemViewController {
+                addItemViewController.delegate = self
+            }
+        }
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -50,6 +64,21 @@ class TableViewController: UITableViewController {
         } else {
             cell.accessoryType = .none
         }
+    }
+}
+
+extension TableViewController: AddItemViewControllerDelegate {
+    func didCancel(_ controller: AddItemViewController) {
+    }
+    
+    func didFinishAdding(_ controller: AddItemViewController, item: TodoItem) {
+        self.todoItems.append(item)
+//        let newRow = todoItems.count
+//        let indexPath = IndexPath(row: newRow, section: 0)
+//        let indexPaths = [indexPath]
+//        tableView.insertRows(at: indexPaths, with: .automatic) -> This call causes the app to crash. Need to figure out why.
+        tableView.reloadData()
+        
     }
 }
 
