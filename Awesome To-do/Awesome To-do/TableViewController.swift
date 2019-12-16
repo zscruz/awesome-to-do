@@ -32,6 +32,18 @@ class TableViewController: UITableViewController {
             if let addItemViewController = segue.destination as? AddItemViewController {
                 addItemViewController.delegate = self
             }
+        } else if segue.identifier == "EditItemSegue" {
+            if let addItemViewController = segue.destination as? AddItemViewController {
+                addItemViewController.delegate = self
+                addItemViewController.isEditMode = true
+                if let cell = sender as? UITableViewCell {
+                    if let indexPath = tableView.indexPath(for: cell)
+                    {
+                        let todoItem = self.todoItems[indexPath.row]
+                        addItemViewController.selectedTodoItem = todoItem
+                    }
+                }
+            }
         }
     }
 
@@ -93,6 +105,17 @@ extension TableViewController: AddItemViewControllerDelegate {
 //        tableView.insertRows(at: indexPaths, with: .automatic) -> This call causes the app to crash. Need to figure out why.
         tableView.reloadData()
         
+    }
+    
+    func didFinishEditing(_ controller: AddItemViewController, item: TodoItem) {
+        if let index = todoItems.firstIndex(of: item) {
+            let indexPath = IndexPath(row: index, section: 0)
+            if let cell = tableView.cellForRow(at: indexPath) {
+                if let label = cell.viewWithTag(100) as? UILabel {
+                    label.text = item.title
+                }
+            }
+        }
     }
 }
 

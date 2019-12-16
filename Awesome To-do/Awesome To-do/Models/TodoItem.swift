@@ -7,7 +7,7 @@
 //
 import Foundation
 
-class TodoItem {
+class TodoItem: NSObject {
     var title: String
     var isCompleted: Bool
     

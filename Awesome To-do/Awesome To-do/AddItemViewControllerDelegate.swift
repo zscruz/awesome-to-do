@@ -11,4 +11,5 @@ import Foundation
 protocol AddItemViewControllerDelegate: class {
     func didCancel(_ controller: AddItemViewController)
     func didFinishAdding(_ controller: AddItemViewController, item: TodoItem)
+    func didFinishEditing(_ controller: AddItemViewController, item: TodoItem)
 }

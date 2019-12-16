@@ -13,11 +13,20 @@ class AddItemViewController: UIViewController {
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var titleText: UITextField!
     weak var delegate: AddItemViewControllerDelegate?
+    weak var selectedTodoItem: TodoItem?
+    var isEditMode: Bool = false
     
     @IBAction func addTodoItem(_ sender: Any) {
-        if let title = titleText.text {
-            let todoItem = TodoItem(title: title, isCompleted: false)
-            delegate?.didFinishAdding(self, item: todoItem)
+        if isEditMode {
+            if let todoItem = selectedTodoItem, let text = titleText.text {
+                todoItem.title = text
+                delegate?.didFinishEditing(self, item: todoItem)
+            }
+        } else {
+            if let title = titleText.text {
+                let todoItem = TodoItem(title: title, isCompleted: false)
+                delegate?.didFinishAdding(self, item: todoItem)
+            }
         }
         navigationController?.popViewController(animated: true)
     }
