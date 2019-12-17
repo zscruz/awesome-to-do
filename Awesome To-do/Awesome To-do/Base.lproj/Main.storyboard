@@ -71,9 +71,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9oZ-9t-v0m">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9oZ-9t-v0m">
                                 <rect key="frame" x="20" y="99" width="374" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                                 <connections>
@@ -83,6 +82,11 @@
                             </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="9oZ-9t-v0m" firstAttribute="leading" secondItem="pDD-HI-mdk" secondAttribute="leading" constant="20" id="0ac-DM-E8e"/>
+                            <constraint firstItem="9oZ-9t-v0m" firstAttribute="top" secondItem="pDD-HI-mdk" secondAttribute="top" constant="11" id="3e1-ee-oCp"/>
+                            <constraint firstItem="pDD-HI-mdk" firstAttribute="trailing" secondItem="9oZ-9t-v0m" secondAttribute="trailing" constant="20" id="GWM-jd-1MP"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="pDD-HI-mdk"/>
                     </view>
                     <navigationItem key="navigationItem" id="k4L-gm-CcN">
