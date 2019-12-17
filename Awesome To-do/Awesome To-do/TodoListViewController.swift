@@ -94,12 +94,10 @@ class TodoListViewController: UITableViewController {
 extension TodoListViewController: DetailTodoItemControllerDelegate {
     func didFinishAdding(_ controller: DetailTodoItemController, item: TodoItem) {
         self.todoItems.append(item)
-//        let newRow = todoItems.count
-//        let indexPath = IndexPath(row: newRow, section: 0)
-//        let indexPaths = [indexPath]
-//        tableView.insertRows(at: indexPaths, with: .automatic) -> This call causes the app to crash. Need to figure out why.
-        tableView.reloadData()
-        
+        let newRow = todoItems.count - 1
+        let indexPath = IndexPath(row: newRow, section: 0)
+        let indexPaths = [indexPath]
+        tableView.insertRows(at: indexPaths, with: .automatic) //-> This call causes the app to crash. Need to figure out why.
     }
     
     func didFinishEditing(_ controller: DetailTodoItemController, item: TodoItem) {
