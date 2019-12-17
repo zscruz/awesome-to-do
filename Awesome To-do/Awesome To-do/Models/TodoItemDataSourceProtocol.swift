@@ -9,5 +9,5 @@
 import Foundation
 
 protocol TodoItemDataSourceProtocol {
-    func getTodoItemList() -> [TodoItem]
+    func getTodoItemList() -> TodoList
 }

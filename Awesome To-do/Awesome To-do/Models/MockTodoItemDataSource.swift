@@ -9,13 +9,13 @@
 import Foundation
 
 class MockTodoItemDataSource: TodoItemDataSourceProtocol {
-    func getTodoItemList() -> [TodoItem] {
+    func getTodoItemList() -> TodoList {
         let todoItems = [
             TodoItem(title: "Learn Swift", isCompleted: false),
             TodoItem(title: "Learn Cocoa Touch", isCompleted: false),
             TodoItem(title: "Learn MVC", isCompleted: true)
         ]
         
-        return todoItems
+        return TodoList(todoItems: todoItems)
     }
 }

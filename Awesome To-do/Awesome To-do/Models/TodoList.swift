@@ -10,6 +10,14 @@ import Foundation
 class TodoList {
     var todoItems: [TodoItem] = []
     
+    init() {
+        todoItems = []
+    }
+    
+    init(todoItems: [TodoItem]) {
+        self.todoItems = todoItems
+    }
+    
     func addTodoItem(todoItemToAdd: TodoItem) {
         todoItems.append(todoItemToAdd)
     }

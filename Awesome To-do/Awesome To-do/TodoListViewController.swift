@@ -10,19 +10,18 @@ import UIKit
 
 
 class TodoListViewController: UITableViewController {
-    var todoItems: [TodoItem] = []
+    var todoList: TodoList = TodoList()
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
-        let mockData = MockTodoItemDataSource()
-        self.todoItems = mockData.getTodoItemList()
-        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        let mockData = MockTodoItemDataSource()
+        self.todoList = mockData.getTodoItemList()
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -35,7 +34,7 @@ class TodoListViewController: UITableViewController {
                 detailTodoItemController.delegate = self
                 detailTodoItemController.isEditMode = true
                 if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
-                    let todoItem = self.todoItems[indexPath.row]
+                    let todoItem = self.todoList.todoItems[indexPath.row]
                     detailTodoItemController.selectedTodoItem = todoItem
                 }
             }
@@ -43,12 +42,12 @@ class TodoListViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoItems.count
+        return todoList.todoItems.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
-        let todoItem = todoItems[indexPath.row]
+        let todoItem = todoList.todoItems[indexPath.row]
         updateText(cell, todoItem)
         updateCheckmark(cell, todoItem)
         
@@ -56,7 +55,7 @@ class TodoListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let todoItem = todoItems[indexPath.row]
+        let todoItem = todoList.todoItems[indexPath.row]
         todoItem.toggleCompletedStatus()
         if let cell = tableView.cellForRow(at: indexPath) {
             updateCheckmark(cell, todoItem)
@@ -84,7 +83,7 @@ class TodoListViewController: UITableViewController {
        }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        todoItems.remove(at: indexPath.row)
+        todoList.todoItems.remove(at: indexPath.row)
         
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic)
@@ -93,15 +92,15 @@ class TodoListViewController: UITableViewController {
 
 extension TodoListViewController: DetailTodoItemControllerDelegate {
     func didFinishAdding(_ controller: DetailTodoItemController, item: TodoItem) {
-        self.todoItems.append(item)
-        let newRow = todoItems.count - 1
+        self.todoList.addTodoItem(todoItemToAdd: item)
+        let newRow = todoList.todoItems.count - 1
         let indexPath = IndexPath(row: newRow, section: 0)
         let indexPaths = [indexPath]
         tableView.insertRows(at: indexPaths, with: .automatic) //-> This call causes the app to crash. Need to figure out why.
     }
     
     func didFinishEditing(_ controller: DetailTodoItemController, item: TodoItem) {
-        if let index = todoItems.firstIndex(of: item) {
+        if let index = todoList.todoItems.firstIndex(of: item) {
             let indexPath = IndexPath(row: index, section: 0)
             if let cell = tableView.cellForRow(at: indexPath) {
                 updateText(cell, item)
