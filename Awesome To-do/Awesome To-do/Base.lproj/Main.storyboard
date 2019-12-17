@@ -10,7 +10,7 @@
         <!--Awesome To-do-->
         <scene sceneID="oNr-8Q-5nE">
             <objects>
-                <tableViewController id="lek-Hs-dO0" customClass="TableViewController" customModule="Awesome_To_do" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="lek-Hs-dO0" customClass="TodoListViewController" customModule="Awesome_To_do" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bAA-hf-m5t">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -52,7 +52,6 @@
                     <navigationItem key="navigationItem" title="Awesome To-do" id="mRt-y9-7N1">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="EB7-pL-tim">
                             <connections>
-                                <action selector="addItem:" destination="lek-Hs-dO0" id="auk-W4-9jk"/>
                                 <segue destination="UEX-tB-Wmg" kind="show" identifier="AddItemSegue" id="kkk-co-eQZ"/>
                             </connections>
                         </barButtonItem>
@@ -63,16 +62,17 @@
             </objects>
             <point key="canvasLocation" x="630.43478260869574" y="-76.339285714285708"/>
         </scene>
-        <!--Add Item View Controller-->
+        <!--Detail Todo Item Controller-->
         <scene sceneID="V8y-YA-nlM">
             <objects>
-                <viewController id="UEX-tB-Wmg" customClass="AddItemViewController" customModule="Awesome_To_do" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="UEX-tB-Wmg" customClass="DetailTodoItemController" customModule="Awesome_To_do" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9lp-Qt-duo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9oZ-9t-v0m">
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9oZ-9t-v0m">
                                 <rect key="frame" x="20" y="99" width="374" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
                                 <connections>
@@ -82,11 +82,6 @@
                             </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="9oZ-9t-v0m" firstAttribute="leading" secondItem="pDD-HI-mdk" secondAttribute="leading" constant="20" id="0ac-DM-E8e"/>
-                            <constraint firstItem="9oZ-9t-v0m" firstAttribute="top" secondItem="pDD-HI-mdk" secondAttribute="top" constant="11" id="3e1-ee-oCp"/>
-                            <constraint firstItem="pDD-HI-mdk" firstAttribute="trailing" secondItem="9oZ-9t-v0m" secondAttribute="trailing" constant="20" id="GWM-jd-1MP"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="pDD-HI-mdk"/>
                     </view>
                     <navigationItem key="navigationItem" id="k4L-gm-CcN">

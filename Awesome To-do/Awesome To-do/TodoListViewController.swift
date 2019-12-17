@@ -9,14 +9,12 @@
 import UIKit
 
 
-class TableViewController: UITableViewController {
+class TodoListViewController: UITableViewController {
     var todoItems: [TodoItem] = []
-    
-    @IBAction func addItem(_ sender: Any) {
-    }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        
         let mockData = MockTodoItemDataSource()
         self.todoItems = mockData.getTodoItemList()
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -29,19 +27,16 @@ class TableViewController: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddItemSegue" {
-            if let addItemViewController = segue.destination as? AddItemViewController {
-                addItemViewController.delegate = self
+            if let detailTodoItemController = segue.destination as? DetailTodoItemController {
+                detailTodoItemController.delegate = self
             }
         } else if segue.identifier == "EditItemSegue" {
-            if let addItemViewController = segue.destination as? AddItemViewController {
-                addItemViewController.delegate = self
-                addItemViewController.isEditMode = true
-                if let cell = sender as? UITableViewCell {
-                    if let indexPath = tableView.indexPath(for: cell)
-                    {
-                        let todoItem = self.todoItems[indexPath.row]
-                        addItemViewController.selectedTodoItem = todoItem
-                    }
+            if let detailTodoItemController = segue.destination as? DetailTodoItemController {
+                detailTodoItemController.delegate = self
+                detailTodoItemController.isEditMode = true
+                if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
+                    let todoItem = self.todoItems[indexPath.row]
+                    detailTodoItemController.selectedTodoItem = todoItem
                 }
             }
         }
@@ -54,11 +49,8 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
         let todoItem = todoItems[indexPath.row]
-        if let label = cell.viewWithTag(100) as? UILabel {
-            label.text = todoItem.title
-        }
-        
-        updateCheckmark(todoItem, cell)
+        updateText(cell, todoItem)
+        updateCheckmark(cell, todoItem)
         
         return cell
     }
@@ -67,13 +59,13 @@ class TableViewController: UITableViewController {
         let todoItem = todoItems[indexPath.row]
         todoItem.toggleCompletedStatus()
         if let cell = tableView.cellForRow(at: indexPath) {
-            updateCheckmark(todoItem, cell)
+            updateCheckmark(cell, todoItem)
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    fileprivate func updateCheckmark(_ todoItem: TodoItem, _ cell: UITableViewCell) {
+    fileprivate func updateCheckmark(_ cell: UITableViewCell, _ todoItem: TodoItem) {
         guard let checkmarkLabel = cell.viewWithTag(101) as? UILabel else {
             return
         }
@@ -85,6 +77,12 @@ class TableViewController: UITableViewController {
        }
     }
     
+    fileprivate func updateText(_ cell: UITableViewCell, _ todoItem: TodoItem) {
+           if let label = cell.viewWithTag(100) as? UILabel {
+               label.text = todoItem.title
+           }
+       }
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         todoItems.remove(at: indexPath.row)
         
@@ -93,11 +91,8 @@ class TableViewController: UITableViewController {
     }
 }
 
-extension TableViewController: AddItemViewControllerDelegate {
-    func didCancel(_ controller: AddItemViewController) {
-    }
-    
-    func didFinishAdding(_ controller: AddItemViewController, item: TodoItem) {
+extension TodoListViewController: DetailTodoItemControllerDelegate {
+    func didFinishAdding(_ controller: DetailTodoItemController, item: TodoItem) {
         self.todoItems.append(item)
 //        let newRow = todoItems.count
 //        let indexPath = IndexPath(row: newRow, section: 0)
@@ -107,13 +102,11 @@ extension TableViewController: AddItemViewControllerDelegate {
         
     }
     
-    func didFinishEditing(_ controller: AddItemViewController, item: TodoItem) {
+    func didFinishEditing(_ controller: DetailTodoItemController, item: TodoItem) {
         if let index = todoItems.firstIndex(of: item) {
             let indexPath = IndexPath(row: index, section: 0)
             if let cell = tableView.cellForRow(at: indexPath) {
-                if let label = cell.viewWithTag(100) as? UILabel {
-                    label.text = item.title
-                }
+                updateText(cell, item)
             }
         }
     }

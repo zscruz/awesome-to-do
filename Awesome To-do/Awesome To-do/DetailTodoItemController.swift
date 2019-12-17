@@ -8,12 +8,14 @@
 
 import UIKit
 
-class AddItemViewController: UIViewController {
+class DetailTodoItemController: UIViewController {
 
     @IBOutlet weak var addButton: UIBarButtonItem!
     @IBOutlet weak var titleText: UITextField!
-    weak var delegate: AddItemViewControllerDelegate?
+    
+    weak var delegate: DetailTodoItemControllerDelegate?
     weak var selectedTodoItem: TodoItem?
+    
     var isEditMode: Bool = false
     
     @IBAction func addTodoItem(_ sender: Any) {
@@ -28,6 +30,7 @@ class AddItemViewController: UIViewController {
                 delegate?.didFinishAdding(self, item: todoItem)
             }
         }
+        
         navigationController?.popViewController(animated: true)
     }
     
@@ -53,7 +56,7 @@ class AddItemViewController: UIViewController {
     }
 }
 
-extension AddItemViewController: UITextFieldDelegate {
+extension DetailTodoItemController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         titleText.resignFirstResponder()
         return false
