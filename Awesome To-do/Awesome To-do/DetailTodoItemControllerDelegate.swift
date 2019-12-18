@@ -10,5 +10,5 @@ import Foundation
 
 protocol DetailTodoItemControllerDelegate: class {
     func didFinishAdding(_ controller: DetailTodoItemController, item: TodoItem)
-    func didFinishEditing(_ controller: DetailTodoItemController, item: TodoItem)
+    func didFinishEditing(_ controller: DetailTodoItemController, item: TodoItemData, newTitle: String)
 }

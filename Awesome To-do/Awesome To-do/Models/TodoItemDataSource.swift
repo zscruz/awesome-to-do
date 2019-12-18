@@ -35,8 +35,7 @@ class TodoItemDataSource: TodoItemDataSourceProtocol {
         }
     }
     
-    func getTodoItemList() -> TodoList {
-        let todoList = TodoList()
+    func getTodoItemList() -> [TodoItemData] {
         let context = persistentContainer.viewContext
         var todos = [TodoItemData]()
         do {
@@ -44,18 +43,23 @@ class TodoItemDataSource: TodoItemDataSourceProtocol {
         } catch let error as NSError {
            print("Could not fetch. \(error), \(error.userInfo)")
         }
-        for todo in todos {
-           let todoItem = TodoItem(title: todo.title!, isCompleted: todo.isCompleted)
-           todoList.addTodoItem(todoItemToAdd: todoItem)
-        }
         
-        return todoList
+        return todos
     }
     
-    func addTodoItem(todoItemToAdd: TodoItem) {
+    func addTodoItem(todoItemToAdd: TodoItem) -> TodoItemData {
         let data = TodoItemData(entity: TodoItemData.entity(), insertInto: self.persistentContainer.viewContext)
         data.title = todoItemToAdd.title
         data.isCompleted = todoItemToAdd.isCompleted
         self.saveContext()
+        return data
     }
+    
+    func removeTodoItem(todoItemToRemove: TodoItemData) {
+        persistentContainer.viewContext.delete(todoItemToRemove)
+        self.saveContext()
+    }
+    
+//    func updateTitle(item: TodoItemData, newTitle: String) {
+//    }
 }

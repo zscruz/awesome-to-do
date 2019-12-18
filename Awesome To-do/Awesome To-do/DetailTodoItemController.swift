@@ -14,15 +14,14 @@ class DetailTodoItemController: UIViewController {
     @IBOutlet weak var titleText: UITextField!
     
     weak var delegate: DetailTodoItemControllerDelegate?
-    weak var selectedTodoItem: TodoItem?
+    weak var selectedTodoItem: TodoItemData?
     
     var isEditMode: Bool = false
     
     @IBAction func addTodoItem(_ sender: Any) {
         if isEditMode {
             if let todoItem = selectedTodoItem, let text = titleText.text {
-                todoItem.title = text
-                delegate?.didFinishEditing(self, item: todoItem)
+                delegate?.didFinishEditing(self, item: todoItem, newTitle: text)
             }
         } else {
             if let title = titleText.text {

@@ -12,5 +12,7 @@ import CoreData
 
 
 public class TodoItemData: NSManagedObject {
-
+    func toggleCompletedStatus() {
+        self.isCompleted = !self.isCompleted
+    }
 }

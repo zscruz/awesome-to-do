@@ -8,14 +8,14 @@
 
 import Foundation
 
-class MockTodoItemDataSource: TodoItemDataSourceProtocol {
-    func getTodoItemList() -> TodoList {
-        let todoItems = [
-            TodoItem(title: "Learn Swift", isCompleted: false),
-            TodoItem(title: "Learn Cocoa Touch", isCompleted: false),
-            TodoItem(title: "Learn MVC", isCompleted: true)
-        ]
-        
-        return TodoList(todoItems: todoItems)
-    }
-}
+//class MockTodoItemDataSource: TodoItemDataSourceProtocol {
+//    func getTodoItemList() -> [TodoItemData] {
+//        let todoItems = [
+//            TodoItem(title: "Learn Swift", isCompleted: false),
+//            TodoItem(title: "Learn Cocoa Touch", isCompleted: false),
+//            TodoItem(title: "Learn MVC", isCompleted: true)
+//        ]
+//        
+//        return TodoList(todoItems: todoItems)
+//    }
+//}
