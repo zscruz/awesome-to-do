@@ -11,7 +11,7 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
     var todoList: TodoList = TodoList()
-    
+    let data = TodoItemDataSource()
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -19,8 +19,7 @@ class TodoListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        let mockData = MockTodoItemDataSource()
-        self.todoList = mockData.getTodoItemList()
+        self.todoList = self.data.getTodoItemList()
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
@@ -92,6 +91,7 @@ class TodoListViewController: UITableViewController {
 
 extension TodoListViewController: DetailTodoItemControllerDelegate {
     func didFinishAdding(_ controller: DetailTodoItemController, item: TodoItem) {
+        self.data.addTodoItem(todoItemToAdd: item)
         self.todoList.addTodoItem(todoItemToAdd: item)
         let newRow = todoList.todoItems.count - 1
         let indexPath = IndexPath(row: newRow, section: 0)
