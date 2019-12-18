@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="myCell" id="hUs-qs-Vrj">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="myCell" id="hUs-qs-Vrj" customClass="TodoItemTableViewCell" customModule="Awesome_To_do" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hUs-qs-Vrj" id="hJJ-8X-eFs">
@@ -40,6 +40,8 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="checkmarkLabel" destination="CTW-5L-qWO" id="CKO-yZ-owA"/>
+                                    <outlet property="titleLabel" destination="T0r-1W-lYU" id="8iK-9S-TZ8"/>
                                     <segue destination="UEX-tB-Wmg" kind="show" identifier="EditItemSegue" trigger="accessoryAction" id="lb5-vg-ERV"/>
                                 </connections>
                             </tableViewCell>

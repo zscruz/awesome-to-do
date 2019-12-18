@@ -65,22 +65,22 @@ class TodoListViewController: UITableViewController {
     }
     
     fileprivate func updateCheckmark(_ cell: UITableViewCell, _ todoItem: TodoItem) {
-        guard let checkmarkLabel = cell.viewWithTag(101) as? UILabel else {
+        guard let todoItemCell = cell as? TodoItemTableViewCell else {
             return
         }
         
         if todoItem.isCompleted {
-           checkmarkLabel.text = "✅"
+            todoItemCell.checkmarkLabel.text = "✅"
         } else {
-           checkmarkLabel.text = ""
+            todoItemCell.checkmarkLabel.text = ""
        }
     }
     
     fileprivate func updateText(_ cell: UITableViewCell, _ todoItem: TodoItem) {
-           if let label = cell.viewWithTag(100) as? UILabel {
-               label.text = todoItem.title
-           }
-       }
+        if let todoCell = cell as? TodoItemTableViewCell {
+            todoCell.titleLabel.text = todoItem.title
+        }
+    }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         todoList.todoItems.remove(at: indexPath.row)
