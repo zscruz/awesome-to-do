@@ -7,20 +7,31 @@
 //
 
 import UIKit
-
+import CoreData
 
 class TodoListViewController: UITableViewController {
-    var todoList: [TodoItemData]
-    let data = TodoItemDataSource()
-    required init?(coder: NSCoder) {
-        self.todoList = self.data.getTodoItemList()
-        super.init(coder: coder)
-    }
+    
+    private let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private var todos: [TodoItemData] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+      override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        refresh()
+    }
+    
+    private func refresh() {
+        do {
+            todos = try context.fetch(TodoItemData.fetchRequest())
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -33,7 +44,7 @@ class TodoListViewController: UITableViewController {
                 detailTodoItemController.delegate = self
                 detailTodoItemController.isEditMode = true
                 if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
-                    let todoItem = self.todoList[indexPath.row]
+                    let todoItem = self.todos[indexPath.row]
                     detailTodoItemController.selectedTodoItem = todoItem
                 }
             }
@@ -41,12 +52,12 @@ class TodoListViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return todoList.count
+        return todos.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
-        let todoItem = todoList[indexPath.row]
+        let todoItem = todos[indexPath.row]
         updateText(cell, todoItem)
         updateCheckmark(cell, todoItem)
         
@@ -54,8 +65,9 @@ class TodoListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let todoItem = todoList[indexPath.row]
+        let todoItem = todos[indexPath.row]
         todoItem.toggleCompletedStatus()
+        appDelegate.saveContext()
         if let cell = tableView.cellForRow(at: indexPath) {
             updateCheckmark(cell, todoItem)
         }
@@ -82,29 +94,37 @@ class TodoListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        let itemToRemove = todoList[indexPath.row]
-        todoList.remove(at: indexPath.row)
-        self.data.removeTodoItem(todoItemToRemove: itemToRemove)
+        let itemToRemove = todos[indexPath.row]
+        appDelegate.persistentContainer.viewContext.delete(itemToRemove);
+        appDelegate.saveContext()
+        refresh()
+        
         let indexPaths = [indexPath]
         tableView.deleteRows(at: indexPaths, with: .automatic)
     }
 }
 
 extension TodoListViewController: DetailTodoItemControllerDelegate {
-    func didFinishAdding(_ controller: DetailTodoItemController, item: TodoItem) {
-        let ret = self.data.addTodoItem(todoItemToAdd: item)
-        self.todoList.append(ret)
-        let newRow = todoList.count - 1
+    func didFinishAdding(_ controller: DetailTodoItemController, newTitle: String) {
+        let newTodo = TodoItemData(entity: TodoItemData.entity(), insertInto: context)
+        newTodo.title = newTitle
+        newTodo.isCompleted = false
+        appDelegate.saveContext()
+        refresh()
+        
+        let newRow = todos.count - 1
         let indexPath = IndexPath(row: newRow, section: 0)
         let indexPaths = [indexPath]
         tableView.insertRows(at: indexPaths, with: .automatic)
     }
     
     func didFinishEditing(_ controller: DetailTodoItemController, item: TodoItemData, newTitle: String) {
-        if let index = todoList.firstIndex(of: item) {
+        if let index = todos.firstIndex(of: item) {
             let indexPath = IndexPath(row: index, section: 0)
             if let cell = tableView.cellForRow(at: indexPath) {
+                todos[index].title = newTitle
                 updateText(cell, item)
+                appDelegate.saveContext()
             }
         }
     }

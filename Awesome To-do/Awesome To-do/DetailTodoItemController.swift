@@ -25,8 +25,7 @@ class DetailTodoItemController: UIViewController {
             }
         } else {
             if let title = titleText.text {
-                let todoItem = TodoItem(title: title, isCompleted: false)
-                delegate?.didFinishAdding(self, item: todoItem)
+                delegate?.didFinishAdding(self, newTitle: title)
             }
         }
         
