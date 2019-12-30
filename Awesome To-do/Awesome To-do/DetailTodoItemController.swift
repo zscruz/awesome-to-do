@@ -14,7 +14,7 @@ class DetailTodoItemController: UIViewController {
     @IBOutlet weak var titleText: UITextField!
     
     weak var delegate: DetailTodoItemControllerDelegate?
-    weak var selectedTodoItem: TodoItemData?
+    weak var selectedTodoItem: TodoItem?
     
     var isEditMode: Bool = false
     

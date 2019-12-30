@@ -13,7 +13,8 @@ class TodoListViewController: UITableViewController {
     
     private let appDelegate = UIApplication.shared.delegate as! AppDelegate
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    private var todos: [TodoItemData] = []
+    
+    private var todos: [TodoItem] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +29,7 @@ class TodoListViewController: UITableViewController {
     
     private func refresh() {
         do {
-            todos = try context.fetch(TodoItemData.fetchRequest())
+            todos = try context.fetch(TodoItem.fetchRequest())
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
@@ -75,7 +76,7 @@ class TodoListViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    fileprivate func updateCheckmark(_ cell: UITableViewCell, _ todoItem: TodoItemData) {
+    fileprivate func updateCheckmark(_ cell: UITableViewCell, _ todoItem: TodoItem) {
         guard let todoItemCell = cell as? TodoItemTableViewCell else {
             return
         }
@@ -87,7 +88,7 @@ class TodoListViewController: UITableViewController {
        }
     }
     
-    fileprivate func updateText(_ cell: UITableViewCell, _ todoItem: TodoItemData) {
+    fileprivate func updateText(_ cell: UITableViewCell, _ todoItem: TodoItem) {
         if let todoCell = cell as? TodoItemTableViewCell {
             todoCell.titleLabel.text = todoItem.title
         }
@@ -106,7 +107,7 @@ class TodoListViewController: UITableViewController {
 
 extension TodoListViewController: DetailTodoItemControllerDelegate {
     func didFinishAdding(_ controller: DetailTodoItemController, newTitle: String) {
-        let newTodo = TodoItemData(entity: TodoItemData.entity(), insertInto: context)
+        let newTodo = TodoItem(entity: TodoItem.entity(), insertInto: context)
         newTodo.title = newTitle
         newTodo.isCompleted = false
         appDelegate.saveContext()
@@ -118,7 +119,7 @@ extension TodoListViewController: DetailTodoItemControllerDelegate {
         tableView.insertRows(at: indexPaths, with: .automatic)
     }
     
-    func didFinishEditing(_ controller: DetailTodoItemController, item: TodoItemData, newTitle: String) {
+    func didFinishEditing(_ controller: DetailTodoItemController, item: TodoItem, newTitle: String) {
         if let index = todos.firstIndex(of: item) {
             let indexPath = IndexPath(row: index, section: 0)
             if let cell = tableView.cellForRow(at: indexPath) {
