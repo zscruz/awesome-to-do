@@ -10,7 +10,7 @@ import UIKit
 
 class TodoItemTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var checkmarkLabel: UILabel!
+    @IBOutlet weak var checkboxControl: Checkbox!
     @IBOutlet weak var titleLabel: UILabel!
     
     override func awakeFromNib() {

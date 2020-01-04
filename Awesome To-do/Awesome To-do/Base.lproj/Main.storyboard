@@ -23,13 +23,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="351" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="✅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CTW-5L-qWO">
-                                            <rect key="frame" x="20" y="11" width="23" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T0r-1W-lYU">
                                             <rect key="frame" x="55" y="11" width="339" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -37,10 +30,15 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BAA-pK-L6E" customClass="Checkbox" customModule="Awesome_To_do" customModuleProvider="target">
+                                            <rect key="frame" x="15" y="11" width="25" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        </view>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="checkmarkLabel" destination="CTW-5L-qWO" id="CKO-yZ-owA"/>
+                                    <outlet property="checkboxControl" destination="BAA-pK-L6E" id="xFc-tU-CVw"/>
                                     <outlet property="titleLabel" destination="T0r-1W-lYU" id="8iK-9S-TZ8"/>
                                     <segue destination="UEX-tB-Wmg" kind="show" identifier="EditItemSegue" trigger="accessoryAction" id="lb5-vg-ERV"/>
                                 </connections>

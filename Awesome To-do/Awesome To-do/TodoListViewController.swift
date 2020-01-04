@@ -80,12 +80,12 @@ class TodoListViewController: UITableViewController {
         guard let todoItemCell = cell as? TodoItemTableViewCell else {
             return
         }
-        
+
         if todoItem.isCompleted {
-            todoItemCell.checkmarkLabel.text = "✅"
+            todoItemCell.checkboxControl.isChecked = true
         } else {
-            todoItemCell.checkmarkLabel.text = ""
-       }
+            todoItemCell.checkboxControl.isChecked = false
+        }
     }
     
     fileprivate func updateText(_ cell: UITableViewCell, _ todoItem: TodoItem) {
