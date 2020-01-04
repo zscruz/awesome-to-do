@@ -11,15 +11,20 @@ import UIKit
 
 class Checkbox: UIControl {
 
-    public var checkboxBackgroundColor: UIColor = .clear
-    public var checkboxFilledColor: UIColor = .green
+    public var borderColor: UIColor = .gray
+    public var uncheckedFill: UIColor = .white
+    public var checkedFill: UIColor = .gray
+    public var tickColor: UIColor = .white
     public var borderWidth: CGFloat = 2
-    public var isChecked: Bool = false
+    public var checkmarkSize: CGFloat = 0.5
+    
+    public var isChecked: Bool = false {
+        didSet { setNeedsDisplay() }
+    }
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setupGesture()
-        
     }
 
     public required init?(coder aDecoder: NSCoder) {
@@ -34,26 +39,35 @@ class Checkbox: UIControl {
     
     @objc private func handleTapGesture(recognizer: UITapGestureRecognizer) {
         isChecked = !isChecked
-        print("hit")
-        
     }
     
     override func draw(_ rect: CGRect) {
-        let adjustedRect = CGRect(x: borderWidth / 2,
-        y: borderWidth / 2,
-        width: rect.width - borderWidth,
-        height: rect.height - borderWidth)
+        let adjustedRect = CGRect(
+            x: borderWidth / 2,
+            y: borderWidth / 2,
+            width: rect.width - borderWidth,
+            height: rect.height - borderWidth)
         
         let ovalPath = UIBezierPath(ovalIn: adjustedRect)
-
         ovalPath.lineWidth = borderWidth
+        
         if isChecked {
-            checkboxFilledColor.setFill()
+            checkedFill.setFill()
+            ovalPath.fill()
+            let bezierPath = UIBezierPath()
+            bezierPath.move(to: CGPoint(x: adjustedRect.minX + 0.25 * adjustedRect.width, y: adjustedRect.minY + 0.4 * adjustedRect.height))
+            bezierPath.addLine(to: CGPoint(x: adjustedRect.minX + 0.4 * adjustedRect.width, y: adjustedRect.minY + 0.7 * adjustedRect.height))
+            bezierPath.addLine(to: CGPoint(x: adjustedRect.minX + 0.75 * adjustedRect.width, y: adjustedRect.minY + 0.2 * rect.height))
+                bezierPath.lineWidth = checkmarkSize * 5
+            
+            tickColor.setStroke()
+            bezierPath.stroke()
         } else {
-            checkboxBackgroundColor.setFill()
+            uncheckedFill.setFill()
+            ovalPath.fill()
         }
         
+        borderColor.setStroke()
         ovalPath.stroke()
-        ovalPath.fill()
     }
 }
