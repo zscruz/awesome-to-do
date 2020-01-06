@@ -95,13 +95,18 @@ class TodoListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        let itemToRemove = todos[indexPath.row]
-        appDelegate.persistentContainer.viewContext.delete(itemToRemove);
-        appDelegate.saveContext()
-        refresh()
-        
-        let indexPaths = [indexPath]
-        tableView.deleteRows(at: indexPaths, with: .automatic)
+        let alert = UIAlertController(title: "", message: "This item will be deleted permanently.", preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (UIAlertAction) in
+                let itemToRemove = self.todos[indexPath.row]
+                self.appDelegate.persistentContainer.viewContext.delete(itemToRemove);
+                self.appDelegate.saveContext()
+                self.refresh()
+               let indexPaths = [indexPath]
+               tableView.deleteRows(at: indexPaths, with: .automatic)
+        }))
+        self.present(alert, animated: true, completion: nil)
+       
     }
 }
 

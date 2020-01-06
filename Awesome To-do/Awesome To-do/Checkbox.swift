@@ -12,7 +12,7 @@ import UIKit
 class Checkbox: UIControl {
 
     public var borderColor: UIColor = .gray
-    public var uncheckedFill: UIColor = .white
+    public var uncheckedFill: UIColor = .clear
     public var checkedFill: UIColor = .gray
     public var tickColor: UIColor = .white
     public var borderWidth: CGFloat = 2
