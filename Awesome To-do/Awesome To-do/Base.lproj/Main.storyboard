@@ -73,7 +73,7 @@
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="9oZ-9t-v0m">
                                 <rect key="frame" x="20" y="99" width="374" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                 <connections>
                                     <action selector="addTodoItem:" destination="UEX-tB-Wmg" eventType="editingDidEndOnExit" id="EI0-yG-N4M"/>
                                     <outlet property="delegate" destination="UEX-tB-Wmg" id="Idk-0d-yj6"/>
