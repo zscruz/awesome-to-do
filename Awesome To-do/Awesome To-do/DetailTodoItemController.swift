@@ -20,16 +20,24 @@ class DetailTodoItemController: UIViewController {
     
     @IBAction func addTodoItem(_ sender: Any) {
         if isEditMode {
-            if let todoItem = selectedTodoItem, let text = titleText.text {
-                delegate?.didFinishEditing(self, item: todoItem, newTitle: text)
-            }
+           editItem()
         } else {
-            if let title = titleText.text {
-                delegate?.didFinishAdding(self, newTitle: title)
-            }
+           addTodoItem()
         }
         
         navigationController?.popViewController(animated: true)
+    }
+    
+    private func editItem() {
+        if let todoItem = selectedTodoItem, let text = titleText.text {
+            delegate?.didFinishEditing(self, item: todoItem, newTitle: text)
+        }
+    }
+    
+    private func addTodoItem() {
+        if let title = titleText.text {
+           delegate?.didFinishAdding(self, newTitle: title)
+       }
     }
     
     override func viewDidLoad() {
@@ -56,7 +64,9 @@ class DetailTodoItemController: UIViewController {
 
 extension DetailTodoItemController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        editItem()
         titleText.resignFirstResponder()
+        navigationController?.popViewController(animated: true)
         return false
     }
     
