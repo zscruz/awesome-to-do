@@ -18,6 +18,8 @@ class Checkbox: UIControl {
     public var borderWidth: CGFloat = 2
     public var checkmarkSize: CGFloat = 0.5
     
+    private var feedbackGenerator: UIImpactFeedbackGenerator?
+    
     public var isChecked: Bool = false {
         didSet { setNeedsDisplay() }
     }
@@ -25,11 +27,14 @@ class Checkbox: UIControl {
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setupGesture()
+        setupFeedback()
     }
 
     public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        setupFeedback()
         setupGesture()
+        setupFeedback()
     }
     
     private func setupGesture() {
@@ -37,9 +42,17 @@ class Checkbox: UIControl {
         addGestureRecognizer(tapGesture)
     }
     
+    private func setupFeedback() {
+        feedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
+        feedbackGenerator?.prepare()
+    }
+    
     @objc private func handleTapGesture(recognizer: UITapGestureRecognizer) {
         isChecked = !isChecked
         sendActions(for: .valueChanged)
+        
+        feedbackGenerator?.impactOccurred()
+        feedbackGenerator?.prepare()
     }
     
     override func draw(_ rect: CGRect) {
@@ -70,5 +83,13 @@ class Checkbox: UIControl {
         
         borderColor.setStroke()
         ovalPath.stroke()
+    }
+    
+    override public func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let frame = self.bounds
+        let increasedTouchRadius: CGFloat = 5
+        let hitEdgeInsets = UIEdgeInsets(top: -increasedTouchRadius, left: -increasedTouchRadius, bottom: -increasedTouchRadius, right: -increasedTouchRadius)
+        let hitFrame = frame.inset(by: hitEdgeInsets)
+        return hitFrame.contains(point)
     }
 }
