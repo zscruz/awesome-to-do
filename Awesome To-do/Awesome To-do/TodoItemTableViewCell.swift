@@ -13,12 +13,19 @@ class TodoItemTableViewCell: UITableViewCell {
     @IBOutlet weak var checkboxControl: Checkbox!
     @IBOutlet weak var titleLabel: UILabel!
     
+    weak var delegate: TodoItemTableCellDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.checkboxControl.addTarget(self, action: #selector(checkboxValueChanged(sender:)), for: .valueChanged)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
+    }
+    
+    @objc func checkboxValueChanged(sender: Checkbox) {
+        self.delegate?.todoItemTableCell(self, checkboxTapped: sender.isChecked)
     }
 
 }

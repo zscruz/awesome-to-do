@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A80CF0CD23CFE3A4009BBBB7 /* TodoItemTableCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80CF0CC23CFE3A4009BBBB7 /* TodoItemTableCellDelegate.swift */; };
 		A83FA41623BABF2D002980F3 /* TodoItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83FA41423BABF2D002980F3 /* TodoItem+CoreDataClass.swift */; };
 		A83FA41723BABF2D002980F3 /* TodoItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83FA41523BABF2D002980F3 /* TodoItem+CoreDataProperties.swift */; };
 		A851F36123AA872600829105 /* TodoItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A851F36023AA872600829105 /* TodoItemTableViewCell.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A80CF0CC23CFE3A4009BBBB7 /* TodoItemTableCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemTableCellDelegate.swift; sourceTree = "<group>"; };
 		A83FA41423BABF2D002980F3 /* TodoItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoItem+CoreDataClass.swift"; sourceTree = "<group>"; };
 		A83FA41523BABF2D002980F3 /* TodoItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A851F36023AA872600829105 /* TodoItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemTableViewCell.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 				A89EDA9823A3E5F8003FF10B /* AppDelegate.swift */,
 				A89EDA9A23A3E5F8003FF10B /* SceneDelegate.swift */,
 				A89EDA9C23A3E5F8003FF10B /* TodoListViewController.swift */,
+				A80CF0CC23CFE3A4009BBBB7 /* TodoItemTableCellDelegate.swift */,
 				A851F36023AA872600829105 /* TodoItemTableViewCell.swift */,
 				A89EDA9E23A3E5F8003FF10B /* Main.storyboard */,
 				A89EDAA123A3E5F8003FF10B /* Assets.xcassets */,
@@ -184,6 +187,7 @@
 				A89EDA9923A3E5F8003FF10B /* AppDelegate.swift in Sources */,
 				A87062D223A6E1660065D3EE /* DetailTodoItemController.swift in Sources */,
 				A8A8CE7623AABEA50001E113 /* Model.xcdatamodeld in Sources */,
+				A80CF0CD23CFE3A4009BBBB7 /* TodoItemTableCellDelegate.swift in Sources */,
 				A89EDA9B23A3E5F8003FF10B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

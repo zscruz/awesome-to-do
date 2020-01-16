@@ -39,6 +39,7 @@ class Checkbox: UIControl {
     
     @objc private func handleTapGesture(recognizer: UITapGestureRecognizer) {
         isChecked = !isChecked
+        sendActions(for: .valueChanged)
     }
     
     override func draw(_ rect: CGRect) {

@@ -57,11 +57,11 @@ class TodoListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! TodoItemTableViewCell
         let todoItem = todos[indexPath.row]
-        updateText(cell, todoItem)
         updateCheckmark(cell, todoItem)
-        
+        updateText(cell, todoItem)
+        cell.delegate = self
         return cell
     }
     
@@ -69,10 +69,6 @@ class TodoListViewController: UITableViewController {
         let todoItem = todos[indexPath.row]
         todoItem.toggleCompletedStatus()
         appDelegate.saveContext()
-        if let cell = tableView.cellForRow(at: indexPath) {
-            updateCheckmark(cell, todoItem)
-        }
-        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
@@ -132,6 +128,17 @@ extension TodoListViewController: DetailTodoItemControllerDelegate {
                 updateText(cell, item)
                 appDelegate.saveContext()
             }
+        }
+    }
+}
+
+extension TodoListViewController: TodoItemTableCellDelegate {
+    func todoItemTableCell(_ todoItemTableCell: TodoItemTableViewCell, checkboxTapped: Bool) {
+        let indexPath = tableView.indexPath(for: todoItemTableCell)
+        if let index = indexPath?.row {
+            todos[index].isCompleted = checkboxTapped
+            appDelegate.saveContext()
+            refresh()
         }
     }
 }
