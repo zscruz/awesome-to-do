@@ -19,6 +19,10 @@ class DetailTodoItemController: UIViewController {
     var isEditMode: Bool = false
     
     @IBAction func addTodoItem(_ sender: Any) {
+        updateTodoItem()
+    }
+    
+    private func updateTodoItem() {
         if isEditMode {
            editItem()
         } else {
@@ -64,9 +68,8 @@ class DetailTodoItemController: UIViewController {
 
 extension DetailTodoItemController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        editItem()
         titleText.resignFirstResponder()
-        navigationController?.popViewController(animated: true)
+        updateTodoItem()
         return false
     }
     
