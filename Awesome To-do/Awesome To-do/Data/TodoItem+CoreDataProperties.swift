@@ -2,8 +2,8 @@
 //  TodoItem+CoreDataProperties.swift
 //  Awesome To-do
 //
-//  Created by Zachary Cruz on 12/30/19.
-//  Copyright © 2019 zscruz. All rights reserved.
+//  Created by Zachary Cruz on 1/20/20.
+//  Copyright © 2020 zscruz. All rights reserved.
 //
 //
 
@@ -19,5 +19,6 @@ extension TodoItem {
 
     @NSManaged public var isCompleted: Bool
     @NSManaged public var title: String?
+    @NSManaged public var owner: TodoList?
 
 }

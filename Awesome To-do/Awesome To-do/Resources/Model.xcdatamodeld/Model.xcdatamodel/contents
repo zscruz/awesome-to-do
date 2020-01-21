@@ -3,8 +3,14 @@
     <entity name="TodoItem" representedClassName=".TodoItem" syncable="YES">
         <attribute name="isCompleted" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="title" attributeType="String"/>
+        <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TodoList" inverseName="todoItems" inverseEntity="TodoList"/>
+    </entity>
+    <entity name="TodoList" representedClassName="TodoList" syncable="YES">
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="todoItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TodoItem" inverseName="owner" inverseEntity="TodoItem"/>
     </entity>
     <elements>
-        <element name="TodoItem" positionX="-54" positionY="-9" width="128" height="73"/>
+        <element name="TodoItem" positionX="-54" positionY="-9" width="128" height="88"/>
+        <element name="TodoList" positionX="-54" positionY="9" width="128" height="73"/>
     </elements>
 </model>
